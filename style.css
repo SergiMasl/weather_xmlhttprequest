@@ -1,0 +1,66 @@
+body {
+    margin: 20px;
+    align-items: center;
+}
+
+#general {
+    max-height: 250px;
+}
+
+#general img {
+    width: 100%;
+    max-height: 250px;
+}
+
+main,
+#general {
+    max-width: 1024px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+main {
+    display: flex;
+}
+
+.result {
+    margin: 0 auto;
+    padding-top: 3%;
+}
+
+.wind_svg {
+    width: 50px;
+    height: 50px;
+}
+
+.svg {
+    width: 50px;
+    height: 50px;
+}
+
+.city {
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+}
+
+ul {
+    border: 0;
+    list-style: none;
+}
+
+li {
+    margin-top: 10px;
+    width: 15em;
+    background-color: none;
+    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+}
+
+#tem_line {
+    text-decoration: underline;
+    padding-bottom: 3px;
+}
