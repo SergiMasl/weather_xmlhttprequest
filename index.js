@@ -23,11 +23,11 @@ const startIcons = () => {
     } else { cloudSvg.src = './svg/bad-weather-svgrepo-com.svg' }
 
     const windEl = +wind.textContent.replace(/\D/g, '');
-    console.log(windEl)
 
     if (windEl < 3) {
         windSvg.src = './svg/windmill-svgrepo-com.svg';
-    } else if (windEl >= 4 && windEl < 20) {
+    } else
+    if (windEl >= 4 && windEl < 20) {
         windSvg.src = './svg/wind-svgrepo-com.svg';
     } else {
         windSvg.src = './svg/wind-svgrepo-com-2.svg';
@@ -35,25 +35,25 @@ const startIcons = () => {
 };
 
 const startRequest = () => {
-    const xhttp = new XMLHttpRequest();
-
-    xhttp.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 200) {
-            cloud.textContent = JSON.parse(xhttp.responseText).description
-            wind.textContent = JSON.parse(xhttp.responseText).wind
-            temp.textContent = JSON.parse(xhttp.responseText).temperature
+    fetch(`https://goweather.herokuapp.com/weather/${city}`, {
+            method: 'GET',
+            mode: 'cors', //данные со сторонего сервера(как у нас) если мы используем нащ сервер то "same-origin"
+            cache: 'default',
+            referrer: 'client',
+        })
+        .then((response) => {
+            if (response.status != 200) {
+                throw new Error('status network not 200')
+            }
+            return (response.json())
+        })
+        .then((data) => {
+            cloud.textContent = data.description
+            wind.textContent = data.wind
+            temp.textContent = data.temperature
             startIcons();
-        } else if (this.readyState === 4 && this.status != 200) {
-            if (xhttp.statusText === '') {
-                alert('Unknow Error')
-            } else(alert(`${xhttp.status}: ${xhttp.statusText}`))
-            hidden.classList.add("hidden");
-        }
-    }
-
-
-    xhttp.open('GET', `https://goweather.herokuapp.com/weather/${city}`, true);
-    xhttp.send();
+        })
+        .catch((error) => console.log(error))
 }
 
 for (let i = 0; i < cities.length; i++) {
